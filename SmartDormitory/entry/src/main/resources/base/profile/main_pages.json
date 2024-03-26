@@ -1,0 +1,8 @@
+{
+  "src": [
+    "pages/NewIndex",
+    "pages/LoginPage",
+    "pages/RegisterPage",
+    "pages/MainPage"
+  ]
+}
