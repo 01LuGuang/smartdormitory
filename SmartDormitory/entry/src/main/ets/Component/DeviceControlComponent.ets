@@ -1,15 +1,30 @@
+import router from '@ohos.router'
+
+AppStorage.SetOrCreate('door_open', 'False')
+let door_open = AppStorage.Link('door_open')
+
 @Entry
 @Component
+
+
+
 export struct DeviceControlComponent {
+
+
   @State stats1: boolean = false
   @State stats2: boolean = false
   @State stats3: boolean = false
   @State stats4: boolean = false
   @State stats5: boolean = false
 
+  app
+
+
+
   build() {
 
     Column() {
+
       Image(this.stats1 ? $r("app.media.c0") : $r("app.media.c1"))
         .width("40%")
         .height("140vp")
@@ -30,6 +45,7 @@ export struct DeviceControlComponent {
         .offset({ x: "0", y: "-2.5%" })
         .onClick(() => {
           this.stats3 = !this.stats3
+          door_open = 1 - door_open
         })
       Image(this.stats4 ? $r("app.media.a0") : $r("app.media.a1"))
         .width("40%")
@@ -37,6 +53,9 @@ export struct DeviceControlComponent {
         .offset({ x: "-26%", y: "4.5%" })
         .onClick(() => {
           this.stats4 = !this.stats4
+          router.pushUrl({
+            url:'pages/'
+          })
         })
       Image(this.stats5 ? $r("app.media.a0") : $r("app.media.a1"))
         .width("40%")

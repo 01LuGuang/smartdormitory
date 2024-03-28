@@ -2,13 +2,20 @@ import http from '@ohos.net.http';
 import DeviceBean from './DeviceBean';
 import hilog from '@ohos.hilog';
 import router from '@ohos.router';
+AppStorage
 
 export default async function getHttpData(): Promise<DeviceBean[]> {
   //获取同户名参数*******************
-  let myaccount = router.getParams()['myaccount']as string;
-  let mypassword = router.getParams()['mypassword']as string;
+  //let myaccount = router.getParams()['myaccount']as string;
+  //let mypassword = router.getParams()['mypassword']as string;
   AppStorage.SetOrCreate('token',"1");
-  let  token=AppStorage.Link('token');
+  AppStorage.SetOrCreate('myaccount','0');
+  AppStorage.SetOrCreate('mypassword','0');
+
+  let token = AppStorage.Link('token');
+  let myaccount = AppStorage.Link('myaccount');
+  let mypassword = AppStorage.Link('mypassword');
+
   let dataList: DeviceBean[] = []
   let httpRequest = http.createHttp();
   let response = httpRequest.request(
@@ -21,8 +28,8 @@ export default async function getHttpData(): Promise<DeviceBean[]> {
 
       header: {'Content-Type': 'application/json;charset=utf8'},
       extraData:{
-        "username":this.username,
-        "userpassword":this.userpassword
+        "username":myaccount.get(),
+        "userpassword":mypassword.get()
 
         /*
         "auth": {
